@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: horse-training
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/horsetraining
+    username: horsetraining
+    password: devpassword
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true

@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17
+    container_name: horsetraining-db
+    environment:
+      POSTGRES_DB: horsetraining
+      POSTGRES_USER: horsetraining
+      POSTGRES_PASSWORD: devpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
