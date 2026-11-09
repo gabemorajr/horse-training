@@ -24,20 +24,18 @@ public class Horse {
 
     private String color;
 
-    @Column(name = "birth_year")
     private Integer birthYear;
 
     private String notes;
 
-    @Column(name = "archived_at")
     private OffsetDateTime archivedAt;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime updatedAt;
 
     protected Horse() {
