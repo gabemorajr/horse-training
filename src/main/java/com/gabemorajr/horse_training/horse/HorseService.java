@@ -1,6 +1,6 @@
 package com.gabemorajr.horse_training.horse;
 
-import com.gabemorajr.horse_training.horse.dto.CreateHorseRequest;
+import com.gabemorajr.horse_training.horse.dto.HorseRequest;
 import com.gabemorajr.horse_training.horse.dto.HorseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,17 +32,33 @@ public class HorseService {
     }
 
     @Transactional
-    public HorseResponse createHorse(CreateHorseRequest request) {
+    public HorseResponse createHorse(HorseRequest request) {
         Horse horse = new Horse(
                 request.name().trim(),
-                request.breed(),
+                blankToNull(request.breed()),
                 request.sex(),
-                request.color(),
+                blankToNull(request.color()),
                 request.birthYear(),
-                request.notes()
+                blankToNull(request.notes())
         );
         Horse saved = horseRepository.save(horse); // Hibernate runs the INSERT
         return HorseResponse.from(saved);
+    }
+
+    @Transactional
+    public HorseResponse updateHorse(Long id, HorseRequest request) {
+        Horse horse = findHorse(id);
+
+        horse.update(
+                request.name().trim(),
+                blankToNull(request.breed()),
+                request.sex(),
+                blankToNull(request.color()),
+                request.birthYear(),
+                blankToNull(request.notes())
+        );
+        // no need to call horseRepository.save() since dirty checking writes the update automatically
+        return HorseResponse.from(horse);
     }
 
     @Transactional
@@ -55,5 +71,9 @@ public class HorseService {
         return horseRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Horse " + id + " not found"));
+    }
+
+    private static String blankToNull(String value) {
+        return (value == null || value.isBlank()) ? null : value.trim();
     }
 }

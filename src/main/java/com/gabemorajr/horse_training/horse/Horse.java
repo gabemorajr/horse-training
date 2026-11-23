@@ -68,4 +68,12 @@ public class Horse {
     public OffsetDateTime getArchivedAt() { return archivedAt; }
     public OffsetDateTime getCreatedAt() { return createdAt; }
     public OffsetDateTime getUpdatedAt() { return updatedAt; }
+    public void update(String name, String breed, HorseSex sex, String color, Integer birthYear, String notes) {
+        this.name = name;
+        this.breed = breed;
+        this.sex = sex;
+        this.color = color;
+        this.birthYear = birthYear;
+        this.notes = notes;
+    }
 }

@@ -1,6 +1,6 @@
 package com.gabemorajr.horse_training.horse;
 
-import com.gabemorajr.horse_training.horse.dto.CreateHorseRequest;
+import com.gabemorajr.horse_training.horse.dto.HorseRequest;
 import com.gabemorajr.horse_training.horse.dto.HorseResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -30,8 +30,13 @@ public class HorseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201 Created instead of 200 OK
-    public HorseResponse createHorse(@Valid @RequestBody CreateHorseRequest request) {
+    public HorseResponse createHorse(@Valid @RequestBody HorseRequest request) {
         return horseService.createHorse(request);
+    }
+
+    @PutMapping("/{id}")
+    public HorseResponse updateHorse(@PathVariable Long id, @Valid @RequestBody HorseRequest request) {
+        return horseService.updateHorse(id, request);
     }
 
     @DeleteMapping("/{id}")
