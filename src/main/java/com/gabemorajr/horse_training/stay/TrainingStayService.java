@@ -56,6 +56,7 @@ public class TrainingStayService {
         return StayResponse.from(saved);
     }
 
+    @Transactional(readOnly = true)
     public List<StayResponse> listActiveStays() {
         return stayRepository.findActiveWithHorseAndClient()
                 .stream()
