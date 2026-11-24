@@ -1,6 +1,6 @@
 package com.gabemorajr.horse_training.client;
 
-import com.gabemorajr.horse_training.client.dto.CreateClientRequest;
+import com.gabemorajr.horse_training.client.dto.ClientRequest;
 import com.gabemorajr.horse_training.client.dto.ClientResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -30,8 +30,13 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201 Created instead of 200 OK
-    public ClientResponse createClient(@Valid @RequestBody CreateClientRequest request) {
+    public ClientResponse createClient(@Valid @RequestBody ClientRequest request) {
         return clientService.createClient(request);
+    }
+
+    @PutMapping("/{id}")
+    public ClientResponse updateClient(@PathVariable Long id, @Valid @RequestBody ClientRequest request) {
+        return clientService.updateClient(id, request);
     }
 
     @DeleteMapping("/{id}")

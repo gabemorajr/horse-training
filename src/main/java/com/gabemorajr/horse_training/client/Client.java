@@ -45,6 +45,14 @@ public class Client {
         this.notes = notes;
     }
 
+    public void update(String firstName, String lastName, String email, String phone, String notes) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.notes = notes;
+    }
+
     public void archive() {
         this.archivedAt = OffsetDateTime.now();
     }

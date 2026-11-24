@@ -1,6 +1,6 @@
 package com.gabemorajr.horse_training.client;
 
-import com.gabemorajr.horse_training.client.dto.CreateClientRequest;
+import com.gabemorajr.horse_training.client.dto.ClientRequest;
 import com.gabemorajr.horse_training.client.dto.ClientResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class ClientService {
     }
 
     @Transactional
-    public ClientResponse createClient(CreateClientRequest request) {
+    public ClientResponse createClient(ClientRequest request) {
         Client client = new Client(
                 request.firstName().trim(),
                 request.lastName().trim(),
@@ -42,6 +42,21 @@ public class ClientService {
         );
         Client saved = clientRepository.save(client); // Hibernate runs the INSERT
         return ClientResponse.from(saved);
+    }
+
+    @Transactional
+    public ClientResponse updateClient(Long id, ClientRequest request) {
+        Client client = findClient(id);
+
+        client.update(
+                request.firstName().trim(),
+                request.lastName().trim(),
+                blankToNull(request.email()),
+                blankToNull(request.phone()),
+                blankToNull(request.notes())
+        );
+
+        return ClientResponse.from(client);
     }
 
     @Transactional
