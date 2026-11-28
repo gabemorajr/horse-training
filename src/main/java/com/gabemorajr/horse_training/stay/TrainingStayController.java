@@ -3,6 +3,7 @@ package com.gabemorajr.horse_training.stay;
 import com.gabemorajr.horse_training.stay.dto.CreateStayRequest;
 import com.gabemorajr.horse_training.stay.dto.EndStayRequest;
 import com.gabemorajr.horse_training.stay.dto.StayResponse;
+import com.gabemorajr.horse_training.stay.dto.UpdateStayRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,11 @@ public class TrainingStayController {
     @ResponseStatus(HttpStatus.CREATED) // 201 Created instead of 200 OK
     public StayResponse createStay(@Valid @RequestBody CreateStayRequest request) {
         return stayService.createStay(request);
+    }
+
+    @PutMapping("/{id}")
+    public StayResponse updateStay(@PathVariable Long id, @Valid @RequestBody UpdateStayRequest request) {
+        return stayService.updateStay(id, request);
     }
 
     @PostMapping("/{id}/end")

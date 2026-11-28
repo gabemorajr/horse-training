@@ -50,6 +50,17 @@ public class TrainingStay {
         this.goals = goals;
     }
 
+    public void update(Horse horse, Client client, LocalDate arrivalDate, LocalDate departureDate,
+                        BigDecimal monthlyRate, boolean feedIncluded, String goals) {
+        this.horse = horse;
+        this.client = client;
+        this.arrivalDate = arrivalDate;
+        this.departureDate = departureDate;
+        this.monthlyRate = monthlyRate;
+        this.feedIncluded = feedIncluded;
+        this.goals = goals;
+    }
+
     public boolean isActive() {
         return departureDate == null;
     }
